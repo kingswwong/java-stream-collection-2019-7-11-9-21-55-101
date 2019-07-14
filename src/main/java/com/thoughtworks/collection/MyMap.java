@@ -3,7 +3,9 @@ package com.thoughtworks.collection;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyMap {
 
@@ -17,22 +19,38 @@ public class MyMap {
     }
 
     public List<Integer> getTriple() {
-        throw new NotImplementedException();
+        return array.stream().map((n) -> {
+            n = n * 3;
+            return n;
+        }).collect(Collectors.toList());
     }
 
     public List<String> mapLetter() {
-        throw new NotImplementedException();
+        return array.stream().map((n) -> {
+            int temp = Integer.valueOf(n) + 96;
+            return (char)temp + "";
+        }).collect(Collectors.toList());
     }
 
     public List<String> mapLetters() {
-        throw new NotImplementedException();
+        return array.stream().map( n -> {
+            if(n <= 26){
+                return (char)(n + 96) + "";
+            }else{
+                if(n % 26 == 0){
+                    return (char)(n / 26 + 95) + "z";
+                }else{
+                    return (char)(n / 26 + 96) + "" + (char) (n % 26 + 96);
+                }
+            }
+        }).collect(Collectors.toList());
     }
 
     public List<Integer> sortFromBig() {
-        throw new NotImplementedException();
+        return array.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
     }
 
     public List<Integer> sortFromSmall() {
-        throw new NotImplementedException();
+        return array.stream().sorted().collect(Collectors.toList());
     }
 }
